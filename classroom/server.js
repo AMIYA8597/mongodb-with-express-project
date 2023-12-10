@@ -13,7 +13,7 @@ app.get("/getsignedcookies", (req, res) => {
   res.send("signed cookies set");
 });
 
-app.get("verify", (req, res) => {
+app.get("/verify", (req, res) => {
   console.log(req.cookies);
   console.log(req.signedCookies);
   res.send("verified");
