@@ -21,7 +21,7 @@ const validateReview = (req, res, next) => {
 // //************************Reviews**************************************************
 // //post review Route
 
-router.post("/", validateReview, wrapAsync, async (req, res) => {
+router.post("/",validateReview,  wrapAsync, async (req, res) => {
   let listing = await Listing.findById(req.params.id);
   let newReview = new Review(req.body.review);
   listing.reviews.push(newReview);
