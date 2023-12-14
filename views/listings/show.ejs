@@ -89,7 +89,7 @@
           <form
             class="mb-3"
             method="post"
-            action="/listings/<%= idlisting._id%>/reviews <%= review.rating %>?_method=delete"
+            action="/listings/<%= idlisting._id%>/reviews/<%= review.rating %>?_method=delete"
           >
             <button class="btn btn-sm btn-dark">Delete</button>
           </form>
