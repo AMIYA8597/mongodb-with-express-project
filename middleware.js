@@ -1,4 +1,5 @@
 const Listing = require("./models/listing.js")
+const Review = require("./models/review.js")
 const { listingSchema, reviewSchema } = require("./schema");
 const ExpressError = require("./utils/ExpressError");
 
@@ -13,6 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   }
   next();
 };
+
 
 module.exports.saveRedirectUrl = (req,res,next) => {
   if (req.session.redirectUrl) {
@@ -51,3 +53,13 @@ module.exports.validateReview = (req, res, next) => {
     next();
   }
 };
+
+module.exports.onlyAuthorUsed = async (req,res,next) => {
+  let {id , reviewId } = req.params;
+  let reviewUpdate = await Review.findById(reviewId )
+  if (!reviewUpdate.author.equals(res.locals.currentUser._id)) {
+   req.flash("error" , "you didn`t create this review")
+   return res.redirect(`/listings/${id}`)
+  }
+  next();
+}
