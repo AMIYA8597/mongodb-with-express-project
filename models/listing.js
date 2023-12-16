@@ -9,11 +9,14 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        type: String,
-        default: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fz%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-219506797.jpg&tbnid=ADKlCsGJ66uOGM&vet=12ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ..i&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-image219506797&docid=C063LPn7sNb0TM&w=1600&h=1290&q=random%20image&ved=2ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ",
-        set: (v) =>
-            v === ""
-                ? "https://www.google.com/imgres?imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fz%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-219506797.jpg&tbnid=ADKlCsGJ66uOGM&vet=12ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ..i&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-image219506797&docid=C063LPn7sNb0TM&w=1600&h=1290&q=random%20image&ved=2ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ" : v,
+
+        url : String,
+        filename : String,
+        // type: String,
+        // default: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fz%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-219506797.jpg&tbnid=ADKlCsGJ66uOGM&vet=12ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ..i&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-image219506797&docid=C063LPn7sNb0TM&w=1600&h=1290&q=random%20image&ved=2ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ",
+        // set: (v) =>
+        //     v === ""
+        //         ? "https://www.google.com/imgres?imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fz%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-219506797.jpg&tbnid=ADKlCsGJ66uOGM&vet=12ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ..i&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Frandom-click-squirrel-wire-random-picture-cute-squirrel-image219506797&docid=C063LPn7sNb0TM&w=1600&h=1290&q=random%20image&ved=2ahUKEwj6jtecv9qCAxVa2zgGHXQ7CeUQMygJegQIARBZ" : v,
     },
     price: String,
     location: String,
