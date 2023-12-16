@@ -12,8 +12,8 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createListingForm = async (req, res, next) => {
  let url = req.file.path;
  let filename = req.file.filename;
-//  console.log(url, "..", fileName);
-  const newListing = new Listing(req.body.Listing);
+ console.log(url, "..", filename);
+  const newListing = new Listing(req.body.listing);
   // console.log(req.user);
   newListing.owner = req.user._id;
   newListing.image = {url, filename}
