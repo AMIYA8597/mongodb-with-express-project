@@ -38,10 +38,11 @@ router
 
 router
   .route("/:id")
-  .get(isLoggedIn, wrapAsync(listingController.showListingForm))
+  .get( wrapAsync(listingController.showListingForm))
   .put(
     isLoggedIn,
     onlyOwnerUsed,
+    upload.single('listing[image]'),
     validateListing,
     wrapAsync(listingController.updateListing)
   )

@@ -1,5 +1,9 @@
 <% layout("/layouts/boilerPlate") %>
 
+<script>
+  let mapTokenforWeb = "<%= process.env.MAP_BOX_TOKEN %>";
+</script>
+
 <div class="row">
   <div class="col-8 offset-2">
     <h3><b> <%= idlisting.title %> </b> <br /></h3>
@@ -37,6 +41,7 @@
   <div class="col-8 offset-2 mb-3">
     <% if (currentUser) { %>
     <h4>Leave a Review</h4>
+    <hr />
     <form
       action="/listings/<%= idlisting._id%>/reviews"
       method="post"
@@ -122,8 +127,9 @@
     <% } %>
     <hr />
 
-    <h3>All Reviews</h3>
+    <% if (idlisting.reviews.length >0) { %>
     <div class="row">
+      <h3><b> All Reviews </b></h3>
       <% for (review of idlisting.reviews) { %>
       <div class="card col-5 ms-3 mb-3">
         <div class="card-body">
@@ -145,5 +151,21 @@
       </div>
       <% } %>
     </div>
+    <% } %>
   </div>
+  <div class="col-6 offset-2 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
+  </div>
+  <!-- <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW1peWE4NTk3IiwiYSI6ImNscTgzemVteTExb24ycnBhZWo1OW12YmsifQ.4kKvgBSPUAfapj-xfqWO0w';
+  const map = new mapboxgl.Map({
+  container: 'map', // container ID
+  center: [-74.5, 40], // starting position [lng, lat]
+  zoom: 9 // starting zoom
+  });
+  </script> -->
 </div>
+
+<script src="/js/map.js"></script>
+

@@ -1,5 +1,13 @@
 const Listing = require("../models/listing");
 
+// const mbxStyles = require('@mapbox/mapbox-sdk/services/styles');
+// const stylesService = mbxStyles({ accessToken: MY_ACCESS_TOKEN });
+// stylesService exposes listStyles(), createStyle(), getStyle(), etc.
+
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_BOX_TOKEN;
+
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 module.exports.index = async (req, res) => {
   let allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
@@ -10,6 +18,18 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createListingForm = async (req, res, next) => {
+
+   let response = await geocodingClient.forwardGeocode({
+    query: req.body.listing.location,
+    limit: 1,
+  })
+    .send()
+    // .then(response => {
+    //   const match = response.body;
+    // });
+    console.log("response", response.body.features[0].geometry);
+    res.send("done")
+
  let url = req.file.path;
  let filename = req.file.filename;
  console.log(url, "..", filename);
@@ -48,12 +68,24 @@ module.exports.editListingForm = async (req, res) => {
     req.flash("error", "Your listing doesn't existing");
     res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { idlisting });
+
+   let originalImageUrl = idlisting.image.url
+  originalImageUrl= originalImageUrl.replace("/upload", "/upload/w_250");
+  res.render("listings/edit.ejs", { idlisting, originalImageUrl});
 };
 
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+ let listingUpdate = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+ if (typeof req.file !== "undefined") {
+  
+ let url = req.file.path;
+ let filename = req.file.filename;
+//  console.log(url, "..", filename);
+  listingUpdate.image = {url, filename}
+  await listingUpdate.save();
+}
   req.flash("success", "Listing Updated");
   res.redirect(`/listings/${id}`);
 };
