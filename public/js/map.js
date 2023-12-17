@@ -12,6 +12,7 @@
     // style: "mapbox://styles/mapbox/outdoors-v12", //style url
     zoom: 8, // starting zoom
   });
+  
 
 //   console.log("coordinates", coordinates);
 
