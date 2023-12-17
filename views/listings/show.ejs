@@ -1,7 +1,9 @@
 <% layout("/layouts/boilerPlate") %>
 
 <script>
-  let mapTokenforWeb = "<%= process.env.MAP_BOX_TOKEN %>";
+  const mapTokenforWeb = "<%= process.env.MAP_BOX_TOKEN %>";
+  const listing = <%- JSON.stringify(idlisting) %>;
+  
 </script>
 
 <div class="row">
@@ -33,7 +35,7 @@
   <div class="btns">
     <a href="/listings/<%= idlisting._id %>/edit" class="btn btn-dark">Edit </a>
     <br /><br />
-    <form method="post" action="/listings/<%= idlisting._id %>?_method=delete">
+    <form method="post" action="/listings/<%= idlisting._id %>?_method=deconste">
       <button class="btn">Delete</button>
     </form>
   </div>

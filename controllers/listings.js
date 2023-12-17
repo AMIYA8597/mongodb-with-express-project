@@ -27,8 +27,8 @@ module.exports.createListingForm = async (req, res, next) => {
     // .then(response => {
     //   const match = response.body;
     // });
-    console.log("response", response.body.features[0].geometry);
-    res.send("done")
+    // console.log("response", response.body.features[0].geometry);
+    // res.send("done")
 
  let url = req.file.path;
  let filename = req.file.filename;
@@ -37,7 +37,11 @@ module.exports.createListingForm = async (req, res, next) => {
   // console.log(req.user);
   newListing.owner = req.user._id;
   newListing.image = {url, filename}
-  await newListing.save();
+
+  newListing.geometry = response.body.features[0].geometry;
+
+ let savedListing =  await newListing.save();
+ console.log("savedListing", savedListing);
   req.flash("ssuccess", "New Listing Created");
   res.redirect("/listings");
 };
