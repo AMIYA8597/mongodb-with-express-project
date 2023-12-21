@@ -21,6 +21,10 @@ const passport = require("passport");
 // const LocalStrategy = require("passport-locals");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const MongoStore = require('connect-mongo');
+
+// const MONGO_URL= "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl= process.env.ATLAS_DB_URL;
 
 main()
   .then(() => {
@@ -29,7 +33,9 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+  // await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+  // await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -39,7 +45,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret:"secretcode",
+  },
+  touchAfter: 24* 3600,
+})
+
+
+store.on("error", ()=>{
+  console.log("ERROR in mongo session store", err);
+})
+
 const sessionOptions = {
+  store,
   secret: "secretcode",
   resave: false,
   saveUninitialized: true,
@@ -49,6 +69,8 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
+
 
 // app.get("/", (req, res) => {
 //   console.log("root is working");
@@ -99,3 +121,7 @@ app.use((err, req, res, next) => {
 app.listen(5002, (req, res) => {
   console.log("server is running on port 5002");
 });
+
+
+// USERNAME=amiyachowdhury04
+// PASSWORD=ce8mAxvDKSRqm77Z
