@@ -70,8 +70,6 @@ const sessionOptions = {
   },
 };
 
-
-
 // app.get("/", (req, res) => {
 //   console.log("root is working");
 //   res.send("root is working");
