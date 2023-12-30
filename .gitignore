@@ -1,2 +1,5 @@
-.env
 node_modules/
+.env
+.secret
+.DS_Store
+var/
